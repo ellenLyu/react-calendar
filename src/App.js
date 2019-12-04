@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 // import './styles/custom.css';
 
 import Routes from './routes';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
-import MobileHeader from './components/MobileHeader/MobileHeader';
+import Header from './components/Header';
+import Footer from './components/Footer';
+// import MobileHeader from './components/MobileHeader/MobileHeader';
 
 class App extends Component {
   constructor() {

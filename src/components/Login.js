@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { PostData } from '../../services/PostData';
+import { PostData } from '../services/PostData';
 
 class Login extends Component {
     constructor() {
