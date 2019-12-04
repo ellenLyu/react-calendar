@@ -1,0 +1,23 @@
+// Import the required css file for FullCalendar.
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+
+// Set the style of main navigator.
+ul li{
+    display: inline;
+  }
+
+.ReactModal__Overlay {
+    opacity: 0;
+}
+
+.ReactModal__Overlay--after-open{
+    opacity: 1;
+    z-index: 10;
+}
+
+.ReactModal__Overlay--before-close{
+    opacity: 0;
+    z-index: 10;
+}

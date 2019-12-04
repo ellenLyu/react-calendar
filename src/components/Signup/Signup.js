@@ -26,7 +26,6 @@ class Signup extends Component {
                 } else {
                     alert(result.error);
                 }
-                    
             });
         }
     }
@@ -40,7 +39,7 @@ class Signup extends Component {
             return (<Redirect to={'/home'} />)
         }
         return (
-            <div className="row " id="sBody">
+            <div id="sBody">
                 <div className="medium-5 columns left">
                     <h4>Signup</h4>
                     <input type="text" name="email" placeholder="Email" onChange={this.onChange} />

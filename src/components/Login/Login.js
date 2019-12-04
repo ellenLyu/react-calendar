@@ -37,7 +37,7 @@ class Login extends Component {
             return (<Redirect to={'/home'} />)
         }
         return (
-            <div className="row" id="Body">
+            <div id="Body">
                 <div className="medium-5 columns left">
                     <h4>Login</h4>
                     <input type="text" name="username" placeholder="Username" onChange={this.onChange} />
