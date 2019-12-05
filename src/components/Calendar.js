@@ -46,7 +46,7 @@ export default class CalendarScreen extends React.Component {
 
     // Bind the modal function with props.
     this.getInitialState = this.getInitialState.bind(this);
-    // this.handleDateClick = this.handleDateClick.bind(this);
+    this.updateTime = this.updateTime.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
     this.modalTitle = this.modalTitle.bind(this);

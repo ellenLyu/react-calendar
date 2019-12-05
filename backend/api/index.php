@@ -85,12 +85,12 @@ function updateTime() {
 
     require 'config.php';
     $json = json_decode(file_get_contents('php://input'), true);
-    $user_id=$json['user_id'];
-    $date=$json['date'];
-    $startTime=$json['startTime'];
-    $endTime=$json['endTime'];
+    $user_id = $json['user_id'];
+    $date = $json['date'];
+    $startTime = $json['startTime'];
+    $endTime = $json['endTime'];
     
-    if ($user_id !=0) {
+    if ($user_id != 0) {
         $query = "INSERT INTO time(user_id, date, start_from, end_at) VALUES ('$user_id','$date', '$startTime', '$endTime')";
         $db->query($query);              
     }
