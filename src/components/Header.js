@@ -4,12 +4,8 @@ import React, { Component } from 'react';
 class Header extends Component {
     render() {
         return (
-            <div className="callout headcolor" id="Header">
-                <div className="column">
-                    <a href="/">
-                        <h1 id="title">{this.props.name}</h1>
-                    </a>
-                </div>
+            <div className="callout text-center" id="Header">
+                <h1 id="title">{this.props.name}</h1>
             </div>
         );
     }

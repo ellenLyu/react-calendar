@@ -6,7 +6,14 @@ if ($type == 'signup') {
     signup();
 } elseif ($type == 'login') {
     login();
+} elseif ($type == 'updateTime') {
+    updateTime();
 } 
+// elseif ($type == 'display') {
+//     display();
+// } elseif ($type == 'deleteTime') {
+//     deleteTime();
+// } 
 
 function signup() {
     
@@ -73,5 +80,37 @@ function login() {
         echo '{"error":"Wrong username and password"}';
     }
 }
+
+function updateTime() {
+
+    require 'config.php';
+    $json = json_decode(file_get_contents('php://input'), true);
+    $user_id=$json['user_id'];
+    $date=$json['date'];
+    $startTime=$json['startTime'];
+    $endTime=$json['endTime'];
+    
+    if ($user_id !=0) {
+        $query = "INSERT INTO time(user_id, date, start_from, end_at) VALUES ('$user_id','$date', '$startTime', '$endTime')";
+        $db->query($query);              
+    }
+}
+
+// function display() {
+    
+//     require 'config.php';
+//     $json = json_decode(file_get_contents('php://input'), true);
+//     $user_id=$json['user_id'];
+    
+//     $query = "SELECT * FROM feed WHERE user_id=$user_id ORDER BY feed_id DESC LIMIT 10";
+//     //$query = "SELECT * FROM feed ";
+//     $result = $db->query($query); 
+
+//     $feedData = mysqli_fetch_all($result,MYSQLI_ASSOC);
+//     $feedData=json_encode($feedData);
+    
+//     echo '{"feedData":'.$feedData.'}';
+   
+// }
 
 

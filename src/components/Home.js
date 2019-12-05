@@ -38,10 +38,11 @@ class Home extends Component {
 
         return (
             <div id="Body">
-                <div className="medium-12 columns">
-                    <a href="" onClick={this.logout} className="logout">Logout</a>
+                <div className="col-sm-10 offset-sm-1 text-right">
+                    <input type="button" className="btn btn-primary " value="Logout" onClick={this.logout} />  
+                    <hr />
+                    <Calendar />
                 </div>
-                <Calendar />
             </div>
         );
     }

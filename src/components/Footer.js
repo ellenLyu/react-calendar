@@ -4,7 +4,7 @@ class Footer extends Component {
     render() {
         return (
             <div id="footer">
-                <div className="medium-12 columns">
+                <div className="medium-12 columns text-center">
                     <p>Copyright 2019 , <a href="http://www.maketripsau.com/">MakeTrips</a></p>
                 </div>
             </div>
