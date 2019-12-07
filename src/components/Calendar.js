@@ -11,25 +11,6 @@ import TimePicker from 'react-bootstrap-time-picker';
 
 import { PostData } from '../services/PostData';
 
-const customStyles = {
-    overlay: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(255, 255, 255, 0.75)'
-    },
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-    }
-};
-
 /**
  * The class to render Calendar screen.
  */
@@ -46,7 +27,7 @@ export default class CalendarScreen extends React.Component {
 
         // Bind the modal function with props.
         this.getInitialState = this.getInitialState.bind(this);
-        this.updateTime = this.updateTime.bind(this);
+        this.updateData = this.updateData.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.openModal = this.openModal.bind(this);
         this.modalTitle = this.modalTitle.bind(this);
@@ -85,7 +66,8 @@ export default class CalendarScreen extends React.Component {
         this.setState({ endTime: time });
     }
 
-    updateTime(e) {
+    updateData(e) {
+        this.closeModal();
 
         e.preventDefault();
         let data = JSON.parse(localStorage.getItem("userData"));
@@ -102,12 +84,12 @@ export default class CalendarScreen extends React.Component {
                 this.setState({ data: responseJson.timeData });
             })
         }
-        this.closeModal();
-        this.display();
+        
+        this.displayData();
 
     }
 
-    display() {
+    displayData() {
         let data = JSON.parse(localStorage.getItem("userData"));
         let postData = { user_id: data.userData.user_id };
 
@@ -125,43 +107,37 @@ export default class CalendarScreen extends React.Component {
         return (
 
             <div>
-                {/* Create the modal window. */}
+                {/* Popup window */}
                 <Modal show={this.state.showModal} onHide={this.closeModal}>
-
-                    {/* Create the modal header */}
                     <Modal.Header closeButton={this.closeModal}>
                         <Modal.Title>{this.state.date}</Modal.Title>
                     </Modal.Header>
 
-                    {/* Create the modal body and the form */}
                     <Modal.Body>
-                        <form onSubmit={this.updateTime} method="post">
-
-                            {/* <div class="form-group row align-items-center">
-                <label for="title" class="col-form-label col-sm-4 text-right">Event Title:</label>
-                <input type="text" class="col-sm-4 form-control" id="title" name="title" required />
-              </div> */}
-
-                            <div class="form-group row align-items-center">
-                                <label for="start" class="col-form-label col-sm-4 text-right">Start Time:</label>
-                                <TimePicker className="col-sm-4" onChange={this.handleStartTimeChange} value={this.state.startTime} id="startTime" name="startTime" />
+                        <form>
+                        <div className="form-group row align-items-center">
+                                <label htmlFor="start" className="col-form-label col-sm-4 text-right">Start Time: </label>
+                                <TimePicker className="col-sm-4" id="startTime" name="startTime"
+                                    start="06:00" end="19:00" initialValue="09:30" value={this.state.startTime}
+                                    onChange={this.handleStartTimeChange} />
                             </div>
 
-                            <div class="form-group row align-items-center">
-                                <label for="end" class="col-form-label col-sm-4 text-right">End Time:</label>
-                                <TimePicker className="col-sm-4" onChange={this.handleEndTimeChange} value={this.state.endTime} id="endTime" name="endTime" />
+                            <div className="form-group row align-items-center">
+                                <label htmlFor="end" className="col-form-label col-sm-4 text-right">End Time: </label>
+                                <TimePicker className="col-sm-4" id="endTime" name="endTime" 
+                                    start="06:00" end="19:00" initialValue="18:00" value={this.state.endTime}
+                                    onChange={this.handleEndTimeChange} />
                             </div>
                         </form>
                     </Modal.Body>
 
-                    {/* Create the modal footer, includes the close and the save buttons. */}
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.closeModal}>Close</Button>
-                        <Button variant="primary" onClick={this.updateTime}>Save</Button>
+                        <Button variant="primary" onClick={this.updateData}>Save</Button>
                     </Modal.Footer>
                 </Modal>
 
-                {/* Create the calendar window */}
+                {/* Calendar window */}
                 <FullCalendar className="col-sm-10"
                     header={{
                         left: 'prev,next today myCustomButton',

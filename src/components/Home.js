@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-// import './Home.css';
-import { PostData } from '../services/PostData';
-
-// import '../../styles/react-confirm-alert.css';
-
 import Calendar from './Calendar';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import '../main.scss' // webpack must be configured to do this
 
 class Home extends Component {

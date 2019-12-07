@@ -2,16 +2,17 @@
 
 $type = $_GET['tp']; 
 
-if ($type == 'signup') {
-    signup();
-} elseif ($type == 'login') {
-    login();
-} elseif ($type == 'updateTime') {
-    updateTime();
-} 
-elseif ($type == 'display') {
-    display();
-} 
+switch ($_GET['tp']) {
+    case 'signup': signup();
+        break;
+    case 'login': login();
+        break;
+    case 'updateData': updateData();
+        break;
+    case 'displayData': displayData();
+        break;
+
+}
 // elseif ($type == 'deleteTime') {
 //     deleteTime();
 // } 
@@ -82,7 +83,7 @@ function login() {
     }
 }
 
-function updateTime() {
+function updateData() {
 
     require 'config.php';
     $json = json_decode(file_get_contents('php://input'), true);
@@ -97,7 +98,7 @@ function updateTime() {
     }
 }
 
-function display() {
+function displayData() {
     
     require 'config.php';
     $json = json_decode(file_get_contents('php://input'), true);
