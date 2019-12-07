@@ -93,9 +93,16 @@ function updateData() {
     $endTime = $json['endTime'];
     
     if ($user_id != 0) {
-        $query = "INSERT INTO time(user_id, date, start_from, end_at, content) VALUES ('$user_id', '$date', '$startTime', '$endTime', 'test')";
+        $query = "INSERT INTO time(user_id, date, start_from, end_at, content) VALUES ('$user_id', '$date', SEC_TO_TIME($startTime), SEC_TO_TIME($endTime), 'Enter you daily working summary')";
         $db->query($query);              
     }
+
+    $query = "SELECT * FROM time ORDER BY date";
+    $result = $db->query($query); 
+
+    $timeData = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $timeData=json_encode($timeData);
+
 }
 
 function displayData() {

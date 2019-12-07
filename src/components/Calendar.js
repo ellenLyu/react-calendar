@@ -21,8 +21,10 @@ export default class CalendarScreen extends React.Component {
         this.state = {
             showModal: false,
             date: '',
-            startTime: 0,
-            endTime: 0
+            startTime: 34200, // 09:30, 01:00 = 3600, 02:00 = 7200
+            endTime: 64800,  // 18:00
+            
+            data: [] // test code
         };
 
         // Bind the modal function with props.
@@ -57,12 +59,10 @@ export default class CalendarScreen extends React.Component {
     }
 
     handleStartTimeChange(time) {
-        console.log(time);     // <- prints "3600" if "01:00" is picked
-        this.setState({ startTime: time });
+        this.setState({ startTime: time });  // 01:00 = 3600, 02:00 = 7200
     }
 
     handleEndTimeChange(time) {
-        console.log(time);     // <- prints "3600" if "01:00" is picked
         this.setState({ endTime: time });
     }
 
@@ -82,10 +82,10 @@ export default class CalendarScreen extends React.Component {
             PostData('updateTime', postData).then((result) => {
                 let responseJson = result;
                 this.setState({ data: responseJson.timeData });
-            })
+            });
         }
         
-        this.displayData();
+        // this.displayData();
 
     }
 
@@ -94,9 +94,9 @@ export default class CalendarScreen extends React.Component {
         let postData = { user_id: data.userData.user_id };
 
         if (data) {
-            PostData('display', postData).then((result) => {
+            PostData('displayData', postData).then((result) => {
                 let responseJson = result;
-                if (responseJson.feedData) {
+                if (responseJson.timeData) {
                     this.setState({ data: responseJson.timeData });
                 }
             });
