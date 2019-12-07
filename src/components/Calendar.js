@@ -4,12 +4,10 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import interactionPlugin from "@fullcalendar/interaction" // handle click
-
-import { Modal, Button } from 'react-bootstrap';
-import TimePicker from 'react-bootstrap-time-picker';
+import interactionPlugin from "@fullcalendar/interaction"; // handle click
 
 import { PostData } from '../services/PostData';
+import PopupWindow from './PopupWindow';
 
 /**
  * The class to render Calendar screen.
@@ -26,34 +24,20 @@ export default class CalendarScreen extends React.Component {
         };
 
         // Bind the modal function with props.
-        this.getInitialState = this.getInitialState.bind(this);
+        
         this.updateData = this.updateData.bind(this);
         this.closeModal = this.closeModal.bind(this);
-        this.openModal = this.openModal.bind(this);
-        this.modalTitle = this.modalTitle.bind(this);
         this.handleStartTimeChange = this.handleStartTimeChange.bind(this);
         this.handleEndTimeChange = this.handleEndTimeChange.bind(this);
     }
 
-    getInitialState() {
-        return { showModal: false };
+    handleDateClick = (arg) => {
+        this.setState({ date: arg.dateStr });
+        this.setState({ showModal: true });
     }
 
     closeModal() {
         this.setState({ showModal: false });
-    }
-
-    handleDateClick = (arg) => {
-        this.setState({ date: arg.dateStr });
-        this.openModal();
-    }
-
-    openModal() {
-        this.setState({ showModal: true });
-    }
-
-    modalTitle() {
-        return <Modal.Title>{this.state.date}</Modal.Title>;
     }
 
     handleStartTimeChange(time) {
@@ -100,39 +84,18 @@ export default class CalendarScreen extends React.Component {
 
     render() {
         return (
-
             <div>
-                {/* Popup window */}
-                <Modal show={this.state.showModal} onHide={this.closeModal}>
-                    <Modal.Header closeButton={this.closeModal}>
-                        <Modal.Title>{this.state.date}</Modal.Title>
-                    </Modal.Header>
+                <PopupWindow
+                    showModal={this.state.showModal}
+                    closeModal={this.closeModal}
+                    modalTitle={this.state.date}
+                    save={this.updateData}
+                    startTime={this.state.startTime}
+                    endTime={this.state.endTime}
+                    handleStartTimeChange={this.handleStartTimeChange} 
+                    handleEndTimeChange={this.handleEndTimeChange}
+                />
 
-                    <Modal.Body>
-                        <form>
-                        <div className="form-group row align-items-center">
-                                <label htmlFor="start" className="col-form-label col-sm-4 text-right">Start Time: </label>
-                                <TimePicker className="col-sm-4" id="startTime" name="startTime"
-                                    start="06:00" end="19:00" initialValue="09:30" value={this.state.startTime}
-                                    onChange={this.handleStartTimeChange} />
-                            </div>
-
-                            <div className="form-group row align-items-center">
-                                <label htmlFor="end" className="col-form-label col-sm-4 text-right">End Time: </label>
-                                <TimePicker className="col-sm-4" id="endTime" name="endTime" 
-                                    start="06:00" end="19:00" initialValue="18:00" value={this.state.endTime}
-                                    onChange={this.handleEndTimeChange} />
-                            </div>
-                        </form>
-                    </Modal.Body>
-
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={this.closeModal}>Close</Button>
-                        <Button variant="primary" onClick={this.updateData}>Save</Button>
-                    </Modal.Footer>
-                </Modal>
-
-                {/* Calendar window */}
                 <FullCalendar className="col-sm-10"
                     header={{
                         left: 'prev,next today myCustomButton',
@@ -155,6 +118,4 @@ export default class CalendarScreen extends React.Component {
             </div>
         )
     }
-
-
 }
