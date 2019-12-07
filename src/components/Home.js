@@ -26,13 +26,13 @@ class Home extends Component {
     }
     
     logout() {
-        sessionStorage.setItem("userData", '');
-        sessionStorage.clear();
+        localStorage.setItem("userData", '');
+        localStorage.clear();
         this.setState({ redirectToReferrer: true });
     }
 
     render() {
-        if (this.state.redirectToReferrer) {
+        if (this.state.redirectToReferrer || !localStorage.getItem('userData')) {
             return (<Redirect to={'/login'} />)
         }
 

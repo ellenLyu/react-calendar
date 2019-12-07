@@ -88,7 +88,7 @@ export default class CalendarScreen extends React.Component {
     updateTime(e) {
 
         e.preventDefault();
-        let data = JSON.parse(sessionStorage.getItem("userData"));
+        let data = JSON.parse(localStorage.getItem("userData"));
         let postData = {
             user_id: data.userData.user_id,
             date: this.state.date,
@@ -108,7 +108,7 @@ export default class CalendarScreen extends React.Component {
     }
 
     display() {
-        let data = JSON.parse(sessionStorage.getItem("userData"));
+        let data = JSON.parse(localStorage.getItem("userData"));
         let postData = { user_id: data.userData.user_id };
 
         if (data) {

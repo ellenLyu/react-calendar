@@ -21,7 +21,7 @@ class Signup extends Component {
             PostData('signup', this.state).then((result) => {
                 let responseJson = result;
                 if (responseJson.userData) {
-                    sessionStorage.setItem('userData', JSON.stringify(responseJson));
+                    localStorage.setItem('userData', JSON.stringify(responseJson));
                     this.setState({ redirectToReferrer: true });
                 } else {
                     alert(result.error);
@@ -35,7 +35,7 @@ class Signup extends Component {
     }
 
     render() {
-        if (this.state.redirectToReferrer || sessionStorage.getItem('userData')) {
+        if (this.state.redirectToReferrer || localStorage.getItem('userData')) {
             return (<Redirect to={'/home'} />)
         }
         return (
