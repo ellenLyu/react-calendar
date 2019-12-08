@@ -9,8 +9,7 @@ import interactionPlugin from "@fullcalendar/interaction"; // handle click
 import { PostData } from '../services/PostData';
 import PopupWindow from './PopupWindow';
 
-import '@fullcalendar/core/main.css';
-import '@fullcalendar/list/main.css';
+import '../main.scss' // webpack must be configured to do this
 
 /**
  * The class to render Calendar screen.

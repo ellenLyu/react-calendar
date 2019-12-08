@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import Calendar from './Calendar';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import '../main.scss' // webpack must be configured to do this
+
 
 class Home extends Component {
 
