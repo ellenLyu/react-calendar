@@ -89,12 +89,13 @@ function updateData() {
     require 'config.php';
     $json = json_decode(file_get_contents('php://input'), true);
     $user_id = $json['user_id'];
+    $username = $json['username'];
     $date = $json['date'];
     $startTime = $json['startTime'];
     $endTime = $json['endTime'];
     
     if ($user_id != 0) {
-        $query = "INSERT INTO time(user_id, date, start_from, end_at, content) VALUES ('$user_id', '$date', SEC_TO_TIME($startTime), SEC_TO_TIME($endTime), 'Enter you daily working summary')";
+        $query = "INSERT INTO time(user_id, date, start_from, end_at, content) VALUES ('$user_id', '$date', SEC_TO_TIME($startTime), SEC_TO_TIME($endTime), '$username: Enter you daily working summary')";
         $db->query($query);              
     }
 

@@ -72,6 +72,7 @@ class Home extends React.Component {
         let data = JSON.parse(localStorage.getItem("userData"));
         let postData = {
             user_id: data.userData.user_id,
+            username: this.state.username,
             date: this.state.date,
             startTime: this.state.startTime,
             endTime: this.state.endTime,
