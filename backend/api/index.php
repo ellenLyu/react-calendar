@@ -98,7 +98,7 @@ function updateData() {
         $db->query($query);              
     }
 
-    echo '{data}';
+    echo '{"sucess":"Added successfully"}';
 }
 
 function displayData() {
@@ -121,7 +121,4 @@ function displayData() {
         array_push($events, $event);
     }
     echo json_encode($events);
-    // $timeData=json_encode($timeData);
-    
-    // echo '{"timeData":'.$timeData.'}';
 }
