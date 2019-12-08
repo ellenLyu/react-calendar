@@ -9,6 +9,9 @@ import interactionPlugin from "@fullcalendar/interaction"; // handle click
 import { PostData } from '../services/PostData';
 import PopupWindow from './PopupWindow';
 
+import '@fullcalendar/core/main.css';
+import '@fullcalendar/list/main.css';
+
 /**
  * The class to render Calendar screen.
  */
@@ -64,23 +67,23 @@ export default class CalendarScreen extends React.Component {
             PostData('updateData', postData);
         }
         
-        this.displayData();
+        // this.displayData();
 
     }
 
-    displayData() {
-        let data = JSON.parse(localStorage.getItem("userData"));
-        let postData = { user_id: data.userData.user_id };
+    // displayData() {
+    //     let data = JSON.parse(localStorage.getItem("userData"));
+    //     let postData = { user_id: data.userData.user_id };
 
-        if (data) {
-            PostData('displayData', postData).then((result) => {
-                let responseJson = result;
-                if (responseJson.timeData) {
-                    this.setState({ data: responseJson.timeData });
-                }
-            });
-        }
-    }
+    //     if (data) {
+    //         PostData('displayData', postData).then((result) => {
+    //             let responseJson = result;
+    //             if (responseJson.timeData) {
+    //                 this.setState({ data: responseJson.timeData });
+    //             }
+    //         });
+    //     }
+    // }
 
     render() {
         return (
@@ -100,20 +103,20 @@ export default class CalendarScreen extends React.Component {
                     header={{
                         left: 'prev,next today myCustomButton',
                         center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                        right: 'listWeek, dayGridMonth,timeGridWeek,timeGridDay'
                     }}
-                    plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin]}
+                    plugins={[
+                        dayGridPlugin,
+                        interactionPlugin,
+                        timeGridPlugin,
+                        listPlugin
+                    ]}
                     defaultView='dayGridMonth'
                     dateClick={this.handleDateClick}
-                    // events={[
-                    //     { title: 'event 1', date: '2019-12-01' },
-                    //     { title: 'event 2', date: '2019-12-02' }
-                    //   ]}
 
-                    // events={[
-                    //     url: 'http://localhost:8080/react-calendar/backend/api/index.php?tp=display'
-                    
-                    // ]}
+                    events={{
+                            url: 'http://localhost:8080/react-calendar/backend/api/index.php?tp=displayData'
+                        }}
                 />
             </div>
         )

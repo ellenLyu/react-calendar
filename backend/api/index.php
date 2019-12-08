@@ -92,19 +92,12 @@ function updateData() {
     $startTime = $json['startTime'];
     $endTime = $json['endTime'];
     
-    $timeData = '';
     if ($user_id != 0) {
         $query = "INSERT INTO time(user_id, date, start_from, end_at, content) VALUES ('$user_id', '$date', SEC_TO_TIME($startTime), SEC_TO_TIME($endTime), 'Enter you daily working summary')";
         $db->query($query);              
     }
 
-    $query = "SELECT * FROM time ORDER BY date";
-    $result = $db->query($query); 
-
-    $timeData = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    $timeData=json_encode($timeData);
-    
-    echo '{"timeData":'.$timeData.'}';
+    echo '{data}';
 }
 
 function displayData() {
@@ -113,11 +106,21 @@ function displayData() {
     $json = json_decode(file_get_contents('php://input'), true);
     $user_id=$json['user_id'];
     
-    $query = "SELECT * FROM time ORDER BY date";
+    $query = "SELECT content, date, start_from, end_at FROM time ORDER BY date";
     $result = $db->query($query); 
 
-    $timeData = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    $timeData=json_encode($timeData);
+
+    $events = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $event = [];
+        $event['title'] = $row['content'];
+        $event['start'] = $row['date'] . 'T' . $row['start_from'];
+        $event['end'] = $row['date'] . 'T' . $row['end_at'];
+        $event['allDay'] = false;
+        array_push($events, $event);
+    }
+    echo json_encode($events);
+    // $timeData=json_encode($timeData);
     
-    echo '{"timeData":'.$timeData.'}';
+    // echo '{"timeData":'.$timeData.'}';
 }
