@@ -40,25 +40,23 @@ function signup() {
         $email_check > 0 && $username_check>0 && $password_check > 0) {
         
         $userData = '';
+        $query = "select * from users where username='$username' or email='$email'";
+        $result = $db->query($query);
         
-        $result = $db->query("select * from users where username='$username' or email='$email'");
-        $rowCount=$result->num_rows;
-        //echo '{"text": "'.$rowCount.'"}';
-        
-        if ($rowCount==0) {
-                            
-            $db->query("INSERT INTO users(email, username, password)
-                        VALUES('$email', '$username', '$password')");
+        if ($result->num_rows == 0) {
+            $query = "INSERT INTO users(email, username, password) VALUES('$email', '$username', '$password')";
+            $db->query($query);
 
             $userData ='';
             $query = "select * from users where username='$username' and password='$password'";
+            
             $result= $db->query($query);
             $userData = $result->fetch_object();
-            $user_id=$userData->user_id;
+            $user_id = $userData->user_id;
             $userData = json_encode($userData);
             echo '{"userData":'.$userData.'}';
         } else {
-            echo '{"error":"username or email exists"}';
+            echo '{"error":"username or email exists!"}';
         }
     } else {
         echo '{"text":"Enter valid data2"}';
@@ -68,14 +66,17 @@ function signup() {
 function login() { 
     require 'config.php'; 
     $json = json_decode(file_get_contents('php://input'), true); 
-    $username = $json['username']; $password = $json['password']; 
-    $userData =''; $query = "select * from users where username='$username' and password='$password'"; 
-    $result= $db->query($query);
-    $rowCount=$result->num_rows;
+    $username = $json['username']; 
+    $password = $json['password']; 
+
+    $userData =''; 
+    $query = "select * from users where username='$username' and password='$password'"; 
+    $result = $db->query($query);
+    $rowCount = $result->num_rows;
             
-    if ($rowCount>0) {
+    if ($rowCount > 0) {
         $userData = $result->fetch_object();
-        $user_id=$userData->user_id;
+        $username = $userData->username;
         $userData = json_encode($userData);
         echo '{"userData":'.$userData.'}';    
     } else {

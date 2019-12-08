@@ -11,9 +11,9 @@ class Home extends Component {
         super(props);
 
         this.state = {
-            data: [],
-            redirectToReferrer: false,
-            name: '',
+            username: JSON.parse(localStorage.getItem("userData")).userData.username,
+            redirectToReferrer: false
+            
         };
 
         this.logout = this.logout.bind(this);
@@ -33,6 +33,7 @@ class Home extends Component {
         return (
             <div id="Body">
                 <div className="col-sm-10 offset-sm-1 text-right">
+                    <p>Welcome, {this.state.username}</p>
                     <input type="button" className="btn btn-primary " value="Logout" onClick={this.logout} />  
                     <hr />
                     <Calendar />

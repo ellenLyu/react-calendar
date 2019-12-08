@@ -13,6 +13,7 @@ class Login extends Component {
         this.login = this.login.bind(this);
         this.onChange = this.onChange.bind(this);
     }
+    
     login() {
         if (this.state.username && this.state.password) {
             PostData('login', this.state).then((result) => {

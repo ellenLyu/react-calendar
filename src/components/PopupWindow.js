@@ -9,7 +9,6 @@ class PopupWindow extends React.Component {
         this.state = {
             showModal: false
         }
-
     };
     
     render() {
@@ -38,7 +37,7 @@ class PopupWindow extends React.Component {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={this.props.closeModal}>Close</Button>
+                    <Button variant="secondary" onClick={this.props.closeModal}>Cancel</Button>
                     <Button variant="primary" onClick={this.props.save}>Save</Button>
                 </Modal.Footer>
             </Modal>

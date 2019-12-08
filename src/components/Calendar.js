@@ -18,11 +18,14 @@ export default class CalendarScreen extends React.Component {
 
     constructor(props) {
         super(props);
+        
         this.state = {
+
+            username: JSON.parse(localStorage.getItem("userData")).userData.username,
             showModal: false,
             date: '',
-            startTime: 34200, // 09:30, // 01:00 = 3600, 02:00 = 7200
-            endTime: 64800,  // 18:00
+            startTime: 34200, // = 09:30,  01:00 = 3600, 02:00 = 7200
+            endTime: 64800,  // = 18:00
         };
 
         // Bind the modal function with props.
@@ -65,24 +68,7 @@ export default class CalendarScreen extends React.Component {
         if (this.state.date) {
             PostData('updateData', postData);
         }
-        
-        // this.displayData();
-
     }
-
-    // displayData() {
-    //     let data = JSON.parse(localStorage.getItem("userData"));
-    //     let postData = { user_id: data.userData.user_id };
-
-    //     if (data) {
-    //         PostData('displayData', postData).then((result) => {
-    //             let responseJson = result;
-    //             if (responseJson.timeData) {
-    //                 this.setState({ data: responseJson.timeData });
-    //             }
-    //         });
-    //     }
-    // }
 
     render() {
         return (
@@ -104,18 +90,20 @@ export default class CalendarScreen extends React.Component {
                         center: 'title',
                         right: 'listWeek, dayGridMonth,timeGridWeek,timeGridDay'
                     }}
+
                     plugins={[
                         dayGridPlugin,
                         interactionPlugin,
                         timeGridPlugin,
                         listPlugin
                     ]}
+
                     defaultView='dayGridMonth'
                     dateClick={this.handleDateClick}
 
                     events={{
-                            url: 'http://localhost:8080/react-calendar/backend/api/index.php?tp=displayData'
-                        }}
+                        url: 'http://localhost:8080/react-calendar/backend/api/index.php?tp=displayData'
+                    }}
                 />
             </div>
         )
