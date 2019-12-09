@@ -11,6 +11,8 @@ switch ($_GET['tp']) {
         break;
     case 'displayData': displayData();
         break;
+    case 'deleteData': deleteData();
+        break;
 
 }
 // elseif ($type == 'deleteTime') {
@@ -108,13 +110,13 @@ function displayData() {
     $json = json_decode(file_get_contents('php://input'), true);
     $user_id=$json['user_id'];
     
-    $query = "SELECT content, date, start_from, end_at FROM time ORDER BY date";
+    $query = "SELECT * FROM time ORDER BY date";
     $result = $db->query($query); 
-
 
     $events = [];
     while ($row = mysqli_fetch_assoc($result)) {
         $event = [];
+        $event['id'] = $row['time_id'];
         $event['title'] = $row['content'];
         $event['start'] = $row['date'] . 'T' . $row['start_from'];
         $event['end'] = $row['date'] . 'T' . $row['end_at'];
@@ -122,4 +124,20 @@ function displayData() {
         array_push($events, $event);
     }
     echo json_encode($events);
+}
+
+function deleteData() {
+    require 'config.php';
+    $json = json_decode(file_get_contents('php://input'), true);
+
+    $time_id = $json['time_id'];
+
+    $query = "DELETE FROM time WHERE time_id = $time_id";
+
+    $result = $db->query($query);
+    if ($result) {        
+        echo '{"success":"Data deleted"}';
+    } else {
+        echo '{"error":"Delete error"}';
+    }
 }

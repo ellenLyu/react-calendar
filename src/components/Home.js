@@ -36,6 +36,7 @@ class Home extends React.Component {
         this.handleStartTimeChange = this.handleStartTimeChange.bind(this);
         this.handleEndTimeChange = this.handleEndTimeChange.bind(this);
         this.updateData = this.updateData.bind(this);
+        this.deleteData = this.deleteData.bind(this);
     }
     
     logout() {
@@ -83,6 +84,26 @@ class Home extends React.Component {
         }
     }
 
+    deleteData(info) {
+        let eventObj = info.event;
+        console.log(eventObj);
+
+        let time_id = eventObj.id;
+
+        const r = window.confirm("Do you really want to delete it?");
+        if (r === true) { 
+            let postData = {time_id: time_id}
+
+            PostData('deleteData', postData).then((result) => {
+                if (result.success) {
+                    alert(result.success);
+                } else {
+                    alert(result.error);
+                }
+            });
+        }
+    }
+
     render() {
         if (this.state.redirectToReferrer || !localStorage.getItem('userData')) {
             return (<Redirect to={'/login'} />)
@@ -113,12 +134,13 @@ class Home extends React.Component {
                         ]}
 
                         defaultView='dayGridMonth'
-                        dateClick={this.handleDateClick} 
+                        dateClick={this.handleDateClick}
 
                         events={{
                             url: 'http://localhost:8080/react-calendar/backend/api/index.php?tp=displayData'
                         }}
-                        
+
+                        eventClick={this.deleteData}
                     />
 
                     <PopupWindow
